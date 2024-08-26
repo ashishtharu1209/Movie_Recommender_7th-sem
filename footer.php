@@ -20,9 +20,9 @@
       <div class="box">
          <h3>contact info</h3>
          <p> <i class="fas fa-phone"></i> 5550005 </p>
-         <p> <i class="fas fa-phone"></i> 9823647040 </p>
-         <p> <i class="fas fa-envelope"></i> aashishbari456@gmail.com </p>
-         <p> <i class="fas fa-map-marker-alt"></i> Dhapakhel, Lalitpur </p>
+         <p> <i class="fas fa-phone"></i> 9817817811 </p>
+         <p> <i class="fas fa-envelope"></i> Movie@gmail.com </p>
+         <p> <i class="fas fa-map-marker-alt"></i>Satdobato </p>
       </div>
 
       <div class="box">
