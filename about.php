@@ -36,14 +36,14 @@ if(!isset($user_id)){
    <div class="row">
 
       <div class="box">
-         <img src="images/movie.jpg" width="500px" alt="">
+         <img src="images/movie.png" width="500px" alt="">
          <h3>why choose us?</h3>
          <p>Our system provides best Movie recommendation for User</p>
          <a href="contact.php" class="btn">contact us</a>
       </div>
 
       <div class="box">
-         <img src="images/recomend.jpg" width="500px" alt="">
+         <img src="images/recomend.png" width="500px" alt="">
          <h3>what we provide?</h3>
          <p>Best Movie Recommendation according to geners and user review provided</p>
          <a href="shop.php" class="btn">Recommend Movies</a>
