@@ -37,9 +37,9 @@ if(!isset($user_id)){
 <body>
 <?php include 'header.php'; ?>
 <div class="container">
-    	<h1 class="mt-5 mb-5">Post Review & Rating</h1>
+    	<!-- <h1 id="heading" class="mt-5 mb-5">Post Review & Rating</h1> -->
     	<div class="card">
-    		<div class="card-header">Post Review</div>
+    		<div id="heading" class="card-header">Post Review & Rating</div>
     		<div class="card-body">
     			<div class="row">
     				<div class="col-sm-4 text-center">
@@ -154,6 +154,7 @@ if(!isset($user_id)){
 </div>
 
 <style>
+
 .progress-label-left
 {
     float: left;
