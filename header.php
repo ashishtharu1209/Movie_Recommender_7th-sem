@@ -1,5 +1,4 @@
 <?php
-
 if(isset($message)){
    foreach($message as $message){
       echo '
@@ -28,7 +27,7 @@ if(isset($message)){
          <a href="about.php">about</a>
          <a href="feedback.php">feedback</a>
          <a href="contact.php">contact Us</a>
-         <a href="#">Get movies</a>
+         <a href="recommend.php">recommend movies</a>
       </nav>
 
       <div class="icons">

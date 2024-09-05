@@ -46,7 +46,7 @@ if(!isset($user_id)){
          <img src="images/recomend.png" width="500px" alt="">
          <h3>what we provide?</h3>
          <p>Best Movie Recommendation according to geners and user review provided</p>
-         <a href="shop.php" class="btn">Recommend Movies</a>
+         <a href="recommend.php" class="btn">Recommend Movies</a>
       </div>
 
    </div>

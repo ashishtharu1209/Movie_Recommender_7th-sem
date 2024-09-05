@@ -41,7 +41,7 @@ if(!isset($user_id)){
          <h3>"Find Your Next Favorite Film!"</h3>
          <p>
 "Discover the perfect movie for your mood with ease. Our recommendation system tailors suggestions just for you!"</p>
-         <a href="about.php" class="btn">Recommend Movies</a>
+         <a href="recommend.php" class="btn">Recommend Movies</a>
       </div>
 
    </section>
