@@ -50,6 +50,7 @@ CREATE TABLE `movies` (
   `id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `category` varchar(20) NOT NULL,
+  `rating` float(20) NOT NULL,
   `details` varchar(500) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -10,7 +10,6 @@ if(!isset($user_id)){
    header('location:login.php');
 };
 
-
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +79,7 @@ if(!isset($user_id)){
 
 <section class="movies">
 
-   <h1 class="title">latest Movies</h1>
+   <h1 class="title">Recommended Movies</h1>
 
    <div class="box-container">
 
@@ -92,8 +91,10 @@ if(!isset($user_id)){
    ?>
    <form action="" class="box" method="POST">
       <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
-      <div class="name"><?= $fetch_movies['name']; ?></div>
+      <div class="name"><?= $fetch_movies['name']; ?></a></div>
+      <div class="rating">IMDB: <?= $fetch_movies['rating']; ?>⭐</div>
       <input type="hidden" name="p_name" value="<?= $fetch_movies['name']; ?>">
+      <input type="hidden" name="p_rating" value="<?= $fetch_movies['rating']; ?>">
       <input type="hidden" name="p_image" value="<?= $fetch_movies['image']; ?>">
    </form>
    <?php

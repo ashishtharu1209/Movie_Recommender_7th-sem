@@ -63,6 +63,7 @@ if(!isset($user_id)){
    <form action="" class="box" method="POST">
       <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
       <div class="name"><?= $fetch_movies['name']; ?></div>
+      <div class="rating">IMDB: <?= $fetch_movies['rating']; ?>⭐</div>
       <input type="hidden" name="pid" value="<?= $fetch_movies['id']; ?>">
       <input type="hidden" name="p_name" value="<?= $fetch_movies['name']; ?>">
       <input type="hidden" name="p_image" value="<?= $fetch_movies['image']; ?>">

@@ -16,6 +16,8 @@ if(isset($_POST['add_movie'])){
    $name = filter_var($name, FILTER_SANITIZE_STRING);
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
+   $rating = $_POST['rating'];
+   $rating = filter_var($rating, FILTER_SANITIZE_STRING);
    $details = $_POST['details'];
    $details = filter_var($details, FILTER_SANITIZE_STRING);
 
@@ -32,8 +34,8 @@ if(isset($_POST['add_movie'])){
       $message[] = 'Movie name already exists!';
    }else{
 
-      $insert_movies = $conn->prepare("INSERT INTO `movies`(name, category, details, image) VALUES(?,?,?,?)");
-      $insert_movies->execute([$name, $category, $details, $image]);
+      $insert_movies = $conn->prepare("INSERT INTO `movies`(name, category, rating, details, image) VALUES(?,?,?,?,?)");
+      $insert_movies->execute([$name, $category, $rating, $details, $image]);
 
       if($insert_movies){
          if($image_size > 2000000){
@@ -100,6 +102,7 @@ if(isset($_GET['delete'])){
                <option value="romantic">romantic</option>
          </select>
          </div>
+         <input type="text" name="rating" class="box" required placeholder="enter movie imdb rating">
          <div class="inputBox">
          <input type="file" name="image" required class="box" accept="image/jpg, image/jpeg, image/png">
          </div>
@@ -126,6 +129,7 @@ if(isset($_GET['delete'])){
       <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
       <div class="name"><?= $fetch_movies['name']; ?></div>
       <div class="cat"><?= $fetch_movies['category']; ?></div>
+      <div class="rating"><?= $fetch_movies['rating']; ?></div>
       <div class="details"><?= $fetch_movies['details']; ?></div>
       <div class="flex-btn">
          <a href="admin_update_movie.php?update=<?= $fetch_movies['id']; ?>" class="option-btn">update</a>

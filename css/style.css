@@ -119,6 +119,13 @@ body{
    padding:1rem 0;
 }
 
+.movies .box-container .box .rating{
+   font-size: 15px;
+   color:var(--black);
+   padding:1rem 0;
+   margin-left: 25px;
+}
+
 .about .row{
    display: flex;
    flex-wrap: wrap;

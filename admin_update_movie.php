@@ -17,6 +17,8 @@ if(isset($_POST['update_movie'])){
    $name = filter_var($name, FILTER_SANITIZE_STRING);
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
+   $rating = $_POST['rating'];
+   $rating = filter_var($rating, FILTER_SANITIZE_STRING);
    $details = $_POST['details'];
    $details = filter_var($details, FILTER_SANITIZE_STRING);
 
@@ -27,8 +29,8 @@ if(isset($_POST['update_movie'])){
    $image_folder = 'uploaded_img/'.$image;
    $old_image = $_POST['old_image'];
 
-   $update_movie = $conn->prepare("UPDATE `movies` SET name = ?, category = ?, details = ? WHERE id = ?");
-   $update_movie->execute([$name, $category, $details, $pid]);
+   $update_movie = $conn->prepare("UPDATE `movies` SET name = ?, category = ?, rating = ?, details = ? WHERE id = ?");
+   $update_movie->execute([$name, $category, $rating, $details, $pid]);
 
    $message[] = 'Movie updated successfully!';
 
@@ -94,6 +96,7 @@ if(isset($_POST['update_movie'])){
          <option value="comedy">comedy</option>
          <option value="romantic">romantic</option>
       </select>
+      <input type="text" name="rating" placeholder="enter movie imdb rating" required class="box" value="<?= $fetch_movies['rating']; ?>">
       <textarea name="details" required placeholder="enter movie details" class="box" cols="30" rows="10"><?= $fetch_movies['details']; ?></textarea>
       <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
       <div class="flex-btn">
