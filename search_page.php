@@ -59,10 +59,15 @@ if(!isset($user_id)){
       $select_movies->execute();
       if($select_movies->rowCount() > 0){
          while($fetch_movies = $select_movies->fetch(PDO::FETCH_ASSOC)){ 
+            $movie_name_url = urlencode($fetch_movies['name']);
    ?>
    <form action="" class="box" method="POST">
       <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
-      <div class="name"><?= $fetch_movies['name']; ?></div>
+      <div class="name">
+         <a href="https://www.imdb.com/find?q=<?= $movie_name_url; ?>" target="_blank">
+            <?= $fetch_movies['name']; ?>
+         </a>
+      </div>
       <div class="rating">IMDB: <?= $fetch_movies['rating']; ?>⭐</div>
       <input type="hidden" name="pid" value="<?= $fetch_movies['id']; ?>">
       <input type="hidden" name="p_name" value="<?= $fetch_movies['name']; ?>">
