@@ -324,6 +324,13 @@ background-color: var(--light-color);
    font-size: 2rem;
    color:var(--light-bg);
 }
+.update-profile-body{
+   background-color: var(--black);
+}
+
+.update-profile .title{
+   color: var(--white);
+}
 
 .update-profile form{
    max-width: 70rem;

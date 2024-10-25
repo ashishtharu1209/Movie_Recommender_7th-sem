@@ -80,7 +80,7 @@ if(isset($_POST['update_profile'])){
    <link rel="stylesheet" href="css/components.css">
 
 </head>
-<body>
+<body class="update-profile-body">
    
 <?php include 'header.php'; ?>
 
