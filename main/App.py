@@ -92,7 +92,7 @@ def run():
             table = KNN_Movie_Recommender(test_points, no_of_reco + 1)
             table.pop(0)
             c = 0
-            st.success('Some of the movies from our Recommendation, have a look below')
+            st.success('Here are some of our Movies Recommendatons')
             for movie, link, ratings in table:
                 c += 1
                 st.markdown(f"({c}) [ {movie}]({link})")
@@ -112,7 +112,7 @@ def run():
             test_point.append(imdb_score)
             table = KNN_Movie_Recommender(test_point, no_of_reco)
             c = 0
-            st.success('Some of the movies from our Recommendation, have a look below')
+            st.success('Here are some of our Movies Recommendatons')
             for movie, link, ratings in table:
                 c += 1
                 st.markdown(f"({c}) [ {movie}]({link})")
