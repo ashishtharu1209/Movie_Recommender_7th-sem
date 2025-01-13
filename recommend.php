@@ -1,6 +1,6 @@
 <?php
 // The command to run your Streamlit app
-$command = 'streamlit run ./main/App.py';
+$command = 'streamlit run ./main/App.py --server.port 8501 ';
 
 // Run the command using shell_exec
 $output = shell_exec($command);

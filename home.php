@@ -53,7 +53,7 @@ if (!isset($user_id)) {
 
    <section class="home-category">
 
-      <h1 class="title">Movie By Geners</h1>
+      <h1 class="title">Movie By Genres</h1>
 
       <div class="box-container">
 
@@ -69,7 +69,7 @@ if (!isset($user_id)) {
 
          <div class="box">
             <img src="images/mib.png" alt="">
-            <a href="category.php?category=comedy" class="btn">comedy</a>
+            <a href="category.php?category=comedy" class="btn">Comedy</a>
          </div>
 
          <div class="box">
@@ -82,48 +82,36 @@ if (!isset($user_id)) {
    </section>
 
    <section class="movies">
+        <h1 class="title">Recommended Movies</h1>
+        <div class="box-container">
 
-      <h1 class="title">Recommended Movies</h1>
-
-      <div class="box-container">
-
-         <?php
-         $select_movies = $conn->prepare("SELECT * FROM `movies` LIMIT 6");
-         $select_movies->execute();
-         if ($select_movies->rowCount() > 0) {
-            while ($fetch_movies = $select_movies->fetch(PDO::FETCH_ASSOC)) {
-               // Create a URL-friendly version of the movie name
-               $movie_name_url = urlencode($fetch_movies['name']);
-               ?>
-               <form action="" class="box" method="POST">
-                  <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
-                  <div class="name">
-                     <a href="https://www.imdb.com/find?q=<?= $movie_name_url; ?>" target="_blank">
-                        <?= $fetch_movies['name']; ?>
-                     </a>
-                  </div>
-                  <div class="rating">IMDB: <?= $fetch_movies['rating']; ?>⭐</div>
-                  <input type="hidden" name="p_name" value="<?= $fetch_movies['name']; ?>">
-                  <input type="hidden" name="p_rating" value="<?= $fetch_movies['rating']; ?>">
-                  <input type="hidden" name="p_image" value="<?= $fetch_movies['image']; ?>">
-               </form>
-               <?php
+            <?php
+            // Fetch movies from database (adjust to your actual DB setup)
+            $select_movies = $conn->prepare("SELECT * FROM `movies` LIMIT 6");
+            $select_movies->execute();
+            if ($select_movies->rowCount() > 0) {
+                while ($fetch_movies = $select_movies->fetch(PDO::FETCH_ASSOC)) {
+                    // URL-encode movie name for use in the URL
+                    $movie_name_url = urlencode($fetch_movies['name']);
+                    ?>
+                    <div class="box">
+                        <img src="uploaded_img/<?= $fetch_movies['image']; ?>" alt="">
+                        <div class="name">
+                            <a href="movie_recommender.php?movie=<?= $movie_name_url ?>" target="_blank">
+                                <?= $fetch_movies['name']; ?>
+                            </a>
+                        </div>
+                        <div class="rating">IMDB: <?= $fetch_movies['rating']; ?>⭐</div>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo '<p class="empty">No movies available.</p>';
             }
-         } else {
-            echo '<p class="empty">No movies added yet!</p>';
-         }
-         ?>
+            ?>
 
-      </div>
-
-   </section>
-
-
-
-
-
-
-
+        </div>
+    </section>
 
    <?php include 'footer.php'; ?>
 
