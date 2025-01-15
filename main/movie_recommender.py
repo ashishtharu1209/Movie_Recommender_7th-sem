@@ -28,7 +28,7 @@ if missing_columns:
     st.error(f"The dataset is missing the following columns: {', '.join(missing_columns)}.")
     st.stop()
 
-# Function to fetch movie information including the poster from OMDB API
+# Function to fetch movie information including the IMDb ID from OMDB API
 def fetch_movie_info_from_api(movie_title):
     url = f"http://www.omdbapi.com/?t={movie_title}&apikey={API_KEY}"
     response = requests.get(url)
@@ -79,27 +79,33 @@ if movie_name:
     recommendations = recommend_movies(movie_name, movies_df)
 
     if len(recommendations) > 0:
-        for _, row in recommendations.iterrows():
-            st.markdown(f"**{row['movie_title']}**")
+        for idx, row in enumerate(recommendations.iterrows(), start=1):
+            movie_title = row[1]["movie_title"]
             
-            # Fetch movie details (including poster) from OMDB API
-            movie_info = fetch_movie_info_from_api(row['movie_title'])
-            if movie_info and movie_info.get('Response') == 'True':
-                # Display IMDb link, Director, Cast, Plot, and Rating
-                st.markdown(f"Director: {movie_info.get('Director', 'N/A')}")
-                st.markdown(f"Cast: {movie_info.get('Actors', 'N/A')}")
-                st.markdown(f"Plot: {movie_info.get('Plot', 'N/A')}")
-                st.markdown(f"IMDB Rating: {movie_info.get('imdbRating', 'N/A')}⭐")
+            # Fetch movie details (including IMDb ID) from OMDB API
+            movie_info = fetch_movie_info_from_api(movie_title)
+            if movie_info and movie_info.get("Response") == "True":
+                imdb_id = movie_info.get("imdbID", "")
+                imdb_url = f"https://www.imdb.com/title/{imdb_id}" if imdb_id else "#"
+                
+                # Display recommendation with IMDb link
+                st.markdown(f"**{idx}. [ {movie_title}]({imdb_url})**")
 
                 # Display movie poster
-                poster_url = movie_info.get('Poster')
-                if poster_url and poster_url != 'N/A':
-                    st.image(poster_url, use_column_width=True)
+                poster_url = movie_info.get("Poster")
+                if poster_url and poster_url != "N/A":
+                    st.image(poster_url, width=300)
                 else:
                     st.error("Poster not found.")
-            else:
-                st.error(f"Details for {row['movie_title']} could not be fetched.")
 
+                # Display other movie information
+                st.markdown(f"**Director:** {movie_info.get('Director', 'N/A')}")
+                st.markdown(f"**Cast:** {movie_info.get('Actors', 'N/A')}")
+                st.markdown(f"**Plot:** {movie_info.get('Plot', 'N/A')}")
+                st.markdown(f"**IMDb Rating:** {movie_info.get('imdbRating', 'N/A')}⭐")
+                st.markdown("---")  # Separator for recommendations
+            else:
+                st.markdown(f"**{idx}. {movie_title}**")
     else:
         st.write("No recommendations found for this movie. Please try again.")
 else:
