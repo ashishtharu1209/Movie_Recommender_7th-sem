@@ -1,3 +1,4 @@
+import numpy as np
 import streamlit as st
 import pandas as pd
 import requests
@@ -61,7 +62,7 @@ def recommend_movies(movie_name, movies, top_n=5):
     sim_scores = list(enumerate(cosine_sim[idx]))
 
     # Sort movies based on the similarity scores
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    sim_scores = sorted(sim_scores, key=lambda x: np.mean(x[1]) if isinstance(x[1], np.ndarray) else x[1], reverse=True)
 
     # Get the indices of the top N most similar movies
     sim_indices = [i[0] for i in sim_scores[1:top_n + 1]]
