@@ -64,7 +64,7 @@ if(isset($_POST['submit'])){
 
 </head>
 <body class="login-bg">
-<h1 class="login-heading">Movies Recomender</h1>
+<h1 class="login-heading">Movieplex</h1>
 
 <?php
 

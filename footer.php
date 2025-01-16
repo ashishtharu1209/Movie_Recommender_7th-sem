@@ -22,7 +22,7 @@
          <p> <i class="fas fa-phone"></i> 5550005 </p>
          <p> <i class="fas fa-phone"></i> 9817817811 </p>
          <p> <i class="fas fa-envelope"></i> Movie@gmail.com </p>
-         <p> <i class="fas fa-map-marker-alt"></i>Satdobato </p>
+         <p> <i class="fas fa-map-marker-alt"></i> Gwarko</p>
       </div>
 
       <div class="box">

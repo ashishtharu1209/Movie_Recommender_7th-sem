@@ -1,7 +1,11 @@
+import time
+import webbrowser
 import numpy as np
 import streamlit as st
 import pandas as pd
 import requests
+import urllib.parse
+import subprocess
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
@@ -53,7 +57,7 @@ def recommend_movies(movie_name, movies, top_n=5):
     indices = pd.Series(movies.index, index=movies["movie_title"].str.strip().str.lower())
 
     if movie_name.lower() not in indices:
-        st.write(f"No matching movie found for: {movie_name}. Please try a different movie.")
+        st.write(f"Oops! We couldn’t find movies similar to your recent watch. Let’s find something else you’d love—browse by genre, cast, or director!")
         return []
 
     idx = indices[movie_name.lower()]
@@ -70,12 +74,17 @@ def recommend_movies(movie_name, movies, top_n=5):
     # Return the top N most similar movies
     return movies.iloc[sim_indices]
 
-# Get the movie name from the query parameter
-movie_name = st.experimental_get_query_params().get("movie", [""])[0]
+# Retrieve the 'movie' query parameter as a string
+movie_param = st.query_params.get("movie", None)
+
+# If the 'movie' parameter exists, decode it
+if movie_param:
+    movie_name = urllib.parse.unquote_plus(movie_param)  # Directly decode the string
+
 
 # Check if movie_name exists and is valid
 if movie_name:
-    st.subheader(f"Recommendations after watching: {movie_name}")
+    st.subheader(f"People who liked {movie_name} also like:")
 
     recommendations = recommend_movies(movie_name, movies_df)
 
@@ -108,6 +117,12 @@ if movie_name:
             else:
                 st.markdown(f"**{idx}. {movie_title}**")
     else:
-        st.write("No recommendations found for this movie. Please try again.")
+        if st.button("Click Here"):
+             subprocess.Popen(["streamlit", "run", "app.py", "--server.port", "8501"])
+             # Wait a moment to ensure the server has started
+             time.sleep(2)
+             # Open the app in the default browser
+             webbrowser.open("http://localhost:8501")
+    
 else:
-    st.write("No movie selected. Pass a movie name as a query parameter in the URL. Example: ?movie=Inception")
+    st.write("No movie selected. Pass a movie name as a query parameter in the URL.")

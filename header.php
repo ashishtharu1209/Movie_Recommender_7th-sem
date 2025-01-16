@@ -20,14 +20,14 @@ if(isset($message)){
 
    <div class="flex">
 
-      <a href="home.php" class="logo">⎡Movies Recommender⎦</a>
+      <a href="home.php" class="logo">⎡Movieplex⎦</a>
 
       <nav class="navbar">
          <a href="home.php">home</a>
          <a href="about.php">about</a>
          <a href="feedback.php">feedback</a>
          <a href="contact.php">contact Us</a>
-         <a href="recommend.php">recommend movies</a>
+         <a href="recommend.php">movies</a>
       </nav>
 
       <div class="icons">
