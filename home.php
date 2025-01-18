@@ -50,7 +50,8 @@ if (isset($_POST['mark_watched'])) {
                 <span>Movieplex</span>
                 <h3>"Find Your Next Favorite Film!"</h3>
                 <p>
-                    "Discover the perfect movie for your mood with ease. Our recommendation system tailors suggestions just
+                    "Discover the perfect movie for your mood with ease. Our recommendation system tailors suggestions
+                    just
                     for you!"</p>
                 <a href="recommend.php" class="btn">Get Recommendation</a>
             </div>
@@ -61,7 +62,7 @@ if (isset($_POST['mark_watched'])) {
 
     <section class="home-category">
 
-        <h1 class="title">Movie By Genres</h1>
+        <h1 class="title">Genre Collection</h1>
 
         <div class="box-container">
 
@@ -90,11 +91,11 @@ if (isset($_POST['mark_watched'])) {
     </section>
 
     <section class="movies">
-        <h1 class="title">Our Top Watches</h1>
+        <h1 class="title">Movie Library</h1>
         <div class="box-container">
             <?php
-            // Fetch movies from database (adjust to your actual DB setup)
-            $select_movies = $conn->prepare("SELECT * FROM `movies` LIMIT 6");
+            // Fetch latest movies from the database (adjust to your actual DB setup)
+            $select_movies = $conn->prepare("SELECT * FROM `movies` ORDER BY `date_added` DESC LIMIT 6");
             $select_movies->execute();
             if ($select_movies->rowCount() > 0) {
                 while ($fetch_movies = $select_movies->fetch(PDO::FETCH_ASSOC)) {

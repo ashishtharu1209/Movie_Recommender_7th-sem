@@ -53,8 +53,8 @@ if (isset($_POST['mark_watched'])) {
          $category_name = $_GET['category'] ?? '';
          $category_name = filter_var($category_name, FILTER_SANITIZE_STRING);
 
-         // Prepare the SQL statement
-         $select_movies = $conn->prepare("SELECT * FROM `movies` WHERE category = ? LIMIT 6");
+         // Prepare the SQL statement, now sorting by `date_added` to get latest movies first and without LIMIT
+         $select_movies = $conn->prepare("SELECT * FROM `movies` WHERE category = ? ORDER BY `date_added` DESC");
          $select_movies->execute([$category_name]);
 
          // Display movies if found

@@ -44,8 +44,8 @@ def fetch_movie_info_from_api(movie_title):
     else:
         return None
 
-# Function to recommend movies using multiple features
-def recommend_movies(movie_name, movies, top_n=10):
+# Function to recommend movies from the same genre
+def recommend_movies_same_genre(movie_name, movies, top_n=10):
     # Preprocess the dataset
     movies['combined_features'] = (
         movies['plot_keywords'] + " " +
@@ -75,17 +75,33 @@ def recommend_movies(movie_name, movies, top_n=10):
     # Get similarity scores for the movie
     sim_scores = list(enumerate(cosine_sim[idx]))
 
-    # Sort movies based on similarity scores
+    # Sort movies based on similarity scores (we now convert the value to a scalar)
     sim_scores = sorted(sim_scores, key=lambda x: np.mean(x[1]) if isinstance(x[1], np.ndarray) else x[1], reverse=True)
 
     # Get the indices of the top N most similar movies, skipping the movie itself
-    sim_indices = [i[0] for i in sim_scores[1:top_n + 1]]
+    sim_indices = [i[0] for i in sim_scores[1:]]  # Start from 1 to exclude the movie itself
 
-    # Ensure the recommendations are unique
-    unique_recommendations = movies.iloc[sim_indices].drop_duplicates(subset=['movie_title'])
+    # Get the genres of the selected movie
+    selected_movie_genres = set(movies.iloc[idx]['genres'].split('|'))
 
-    # Return the top N unique similar movies
-    return unique_recommendations
+    # Filter recommendations by exact genre match first, then partial matches
+    recommendations = []
+    for i in sim_indices:
+        movie_genres = set(movies.iloc[i]['genres'].split('|'))
+        if selected_movie_genres == movie_genres:  # Exact genre match
+            recommendations.append(i)
+        elif selected_movie_genres & movie_genres:  # Partial match
+            recommendations.append(i)
+
+        # Stop when we reach the desired number of recommendations
+        if len(recommendations) >= top_n:
+            break
+
+    # Retrieve the recommended movies
+    recommended_movies = movies.iloc[recommendations].drop_duplicates(subset=['movie_title'])
+
+    return recommended_movies
+
 
 # Fetch movie name from URL query parameter
 movie_param = st.query_params.get("movie", None)
@@ -98,7 +114,9 @@ if movie_param:
     num_recommendations = st.slider("Select number of recommendations:", min_value=5, max_value=20, step=1)
 
     st.subheader(f"People who liked '{movie_name}' also like:")
-    recommendations = recommend_movies(movie_name, movies_df, top_n=num_recommendations)
+
+    # Fetch recommendations based on genre
+    recommendations = recommend_movies_same_genre(movie_name, movies_df, top_n=num_recommendations)
 
     if len(recommendations) > 0:
         for idx, row in enumerate(recommendations.iterrows(), start=1):
@@ -127,12 +145,15 @@ if movie_param:
             else:
                 st.write(f"**{idx}. {movie_title}** (Details not available)")
     else:
+        # Path to the PHP file on your computer
+        php_file_path = r"C:\xampp\htdocs\clone\Movie_Recommender_7th-sem\recommend.php"  # Update this path with the location of your recommend.php file
+        # When the button is clicked
         if st.button("Click Here"):
-            subprocess.Popen(["streamlit", "run", "app.py", "--server.port", "8501"])
-            # Wait a moment to ensure the server has started
-            time.sleep(2)
-            # Open the app in the default browser
-            webbrowser.open("http://localhost:8501")
+            try:
+                # Run the PHP file using the PHP interpreter
+                subprocess.Popen(["php", php_file_path])  # You need PHP installed and accessible in your system PATH
+            except Exception as e:
+                st.error(f"Error: {e}")
 
 else:
     st.write("No movie selected. Please pass a movie name as a query parameter in the URL.")
