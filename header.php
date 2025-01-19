@@ -10,11 +10,6 @@ if(isset($message)){
    }
 }
 ?>
-<script>
-   function myFunction(){
-   alert("Please login as admin to access admin panel !!");
-}
-</script>
 
 <header class="header">
 
@@ -45,7 +40,6 @@ if(isset($message)){
          <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
          <p><?= $fetch_profile['name']; ?></p>
          <a href="user_profile_update.php" class="btn">update profile</a>
-         <a href="login.php" onclick="myFunction()" class="option-btn">Admin Panel</a>
          <a href="logout.php" class="delete-btn">logout</a>
          <div class="flex-btn">
             <a href="login.php" class="option-btn">login</a>
